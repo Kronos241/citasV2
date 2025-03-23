@@ -1,0 +1,62 @@
+<p-card header="Agendar nueva cita" class="mb-4">
+    <div class="p-fluid p-formgrid grid">
+      <div class="field col-12 md:col-6">
+        <label for="nombre">Nombre del cliente</label>
+        <input id="nombre" type="text" pInputText [(ngModel)]="nuevaCita.nombre" />
+      </div>
+  
+      <div class="field col-12 md:col-6">
+        <label for="fecha">Fecha</label>
+        <p-calendar [(ngModel)]="nuevaCita.fecha" dateFormat="dd/mm/yy"></p-calendar>
+      </div>
+  
+      <div class="field col-12 md:col-6">
+        <label for="hora">Hora</label>
+        <p-dropdown 
+          [options]="horas" 
+          [(ngModel)]="nuevaCita.hora" 
+          placeholder="Selecciona una hora">
+        </p-dropdown>
+      </div>
+  
+      <div class="field col-12 md:col-6">
+        <label for="servicio">Servicio</label>
+        <p-dropdown 
+          [options]="servicios" 
+          [(ngModel)]="nuevaCita.servicio" 
+          placeholder="Selecciona un servicio">
+        </p-dropdown>
+      </div>
+  
+      <div class="col-12">
+        <button 
+          pButton 
+          label="Guardar cita" 
+          class="p-button-success w-full" 
+          (click)="guardarCita()" 
+          [disabled]="!citaValida()">
+        </button>
+      </div>
+    </div>
+  </p-card>
+  
+  <!-- Tabla de citas -->
+  <p-table [value]="citas">
+    <ng-template pTemplate="header">
+      <tr>
+        <th>Cliente</th>
+        <th>Fecha</th>
+        <th>Hora</th>
+        <th>Servicio</th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-cita>
+      <tr>
+        <td>{{ cita.nombre }}</td>
+        <td>{{ cita.fecha | date: 'dd/MM/yyyy' }}</td>
+        <td>{{ cita.hora }}</td>
+        <td>{{ cita.servicio }}</td>
+      </tr>
+    </ng-template>
+  </p-table>
+  

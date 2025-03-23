@@ -1,0 +1,48 @@
+<h2 class="mb-4">Panel de administración</h2>
+
+<div class="grid">
+  <div class="col-12 md:col-6 lg:col-3">
+    <p-card header="Citas de hoy" class="text-center">
+      <h1>{{ totalCitasHoy }}</h1>
+    </p-card>
+  </div>
+
+  <div class="col-12 md:col-6 lg:col-3">
+    <p-card header="Clientes registrados" class="text-center">
+      <h1>{{ totalClientes }}</h1>
+    </p-card>
+  </div>
+
+  <div class="col-12 md:col-6 lg:col-3">
+    <p-card header="Servicios activos" class="text-center">
+      <h1>{{ totalServicios }}</h1>
+    </p-card>
+  </div>
+
+  <div class="col-12 md:col-6 lg:col-3">
+    <p-card header="Citas pendientes" class="text-center">
+      <h1>{{ citasPendientes }}</h1>
+    </p-card>
+  </div>
+</div>
+
+<h3 class="mt-5 mb-3">Últimas citas registradas</h3>
+
+<p-table [value]="ultimasCitas" [paginator]="true" [rows]="5" responsiveLayout="scroll">
+  <ng-template pTemplate="header">
+    <tr>
+      <th>Cliente</th>
+      <th>Fecha</th>
+      <th>Hora</th>
+      <th>Servicio</th>
+    </tr>
+  </ng-template>
+  <ng-template pTemplate="body" let-cita>
+    <tr>
+      <td>{{ cita.nombre }}</td>
+      <td>{{ cita.fecha | date: 'dd/MM/yyyy' }}</td>
+      <td>{{ cita.hora }}</td>
+      <td>{{ cita.servicio }}</td>
+    </tr>
+  </ng-template>
+</p-table>
