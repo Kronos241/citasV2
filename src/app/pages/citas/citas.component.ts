@@ -1,70 +1,65 @@
-// citas.component.ts
 import { Component } from '@angular/core';
-import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { InputTextModule } from 'primeng/inputtext';
-import { CalendarModule } from 'primeng/calendar';
-import { DropdownModule } from 'primeng/dropdown';
-import { ButtonModule } from 'primeng/button';
-import { CardModule } from 'primeng/card';
-import { TableModule } from 'primeng/table';
+import { CommonModule } from '@angular/common'; // 👈 IMPORTANTE
+import { Cita } from '../../models/cita.model';
 
 @Component({
   selector: 'app-citas',
   standalone: true,
   templateUrl: './citas.component.html',
   styleUrls: ['./citas.component.css'],
-  imports: [
-    CommonModule,
-    FormsModule,
-    InputTextModule,
-    CalendarModule,
-    DropdownModule,
-    ButtonModule,
-    CardModule,
-    TableModule
-  ]
+  imports: [CommonModule, FormsModule] // 👈 AGREGA CommonModule
 })
 export class CitasComponent {
-  nuevaCita = {
+  nuevaCita: Cita = {
     nombre: '',
-    fecha: null,
-    hora: null,
-    servicio: ''
+    fecha: '',
+    hora: '',
+    motivo: ''
   };
 
-  citas: any[] = [];
-
-  horas = [
-    { label: '08:00 AM', value: '08:00' },
-    { label: '09:00 AM', value: '09:00' },
-    { label: '10:00 AM', value: '10:00' },
-    { label: '11:00 AM', value: '11:00' },
-    { label: '12:00 PM', value: '12:00' },
-    { label: '01:00 PM', value: '13:00' },
-    { label: '02:00 PM', value: '14:00' },
-    { label: '03:00 PM', value: '15:00' },
-    { label: '04:00 PM', value: '16:00' },
-    { label: '05:00 PM', value: '17:00' }
+  citas: Cita[] = [
+    { nombre: 'Juan Pérez', fecha: '2025-05-14', hora: '10:00', motivo: 'Consulta general' },
+    { nombre: 'María López', fecha: '2025-05-15', hora: '12:30', motivo: 'Revisión anual' }
   ];
 
-  servicios = [
-    { label: 'Consulta general', value: 'consulta' },
-    { label: 'Limpieza dental', value: 'limpieza' },
-    { label: 'Ortodoncia', value: 'ortodoncia' }
-  ];
-
-  citaValida(): boolean {
-    return !(this.nuevaCita.nombre && this.nuevaCita.fecha && this.nuevaCita.hora && this.nuevaCita.servicio);
+  agregarCita() {
+    if (this.nuevaCita.nombre && this.nuevaCita.fecha && this.nuevaCita.hora && this.nuevaCita.motivo) {
+      this.citas.push({ ...this.nuevaCita });
+      this.nuevaCita = { nombre: '', fecha: '', hora: '', motivo: '' };
+    }
   }
 
-  guardarCita() {
-    this.citas.push({ ...this.nuevaCita });
-    this.nuevaCita = {
-      nombre: '',
-      fecha: null,
-      hora: null,
-      servicio: ''
-    };
+  eliminarCita(cita: Cita) {
+    const index = this.citas.indexOf(cita);
+    if (index > -1) {
+      this.citas.splice(index, 1);
+    }
   }
+  chartData = {
+  labels: ['Lun', 'Mar', 'Mié', 'Jue', 'Vie'],
+  datasets: [
+    {
+      label: 'Citas',
+      data: [2, 4, 1, 5, 3],
+      backgroundColor: '#3B82F6'
+    }
+  ]
+};
+
+chartOptions = {
+  responsive: true,
+  plugins: {
+    legend: {
+      display: false
+    }
+  }
+};
+
+citasProximas = [
+  { nombre: 'Pedro Gómez', motivo: 'Chequeo dental', hora: '08:30' },
+  { nombre: 'Lucía Torres', motivo: 'Control prenatal', hora: '11:00' },
+  { nombre: 'Carlos Rivera', motivo: 'Revisión ocular', hora: '09:00' }
+];
+
 }

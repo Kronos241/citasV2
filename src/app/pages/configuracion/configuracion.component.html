@@ -1,1 +1,24 @@
-<p>configuracion works!</p>
+<p-card header="⚙️ Configuración del Sistema" class="mt-4 shadow-lg">
+  <div class="space-y-6 p-4">
+
+    <div class="flex justify-between items-center">
+      <label>Notificaciones por correo</label>
+      <p-inputSwitch [(ngModel)]="notificaciones" />
+    </div>
+
+    <div class="flex justify-between items-center">
+      <label>Modo oscuro</label>
+      <p-inputSwitch [(ngModel)]="modoOscuro" />
+    </div>
+
+    <div class="flex justify-between items-center">
+      <label>Duración estándar de cita (minutos)</label>
+      <p-inputNumber [(ngModel)]="duracionCita" [min]="5" [max]="120" />
+    </div>
+
+    <div class="text-right">
+    <button pButton label="Guardar" icon="pi pi-save" (click)="guardarConfiguracion()" class="p-button-primary"></button>
+    </div>
+
+  </div>
+</p-card>

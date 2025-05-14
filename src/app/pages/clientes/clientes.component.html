@@ -1,1 +1,23 @@
-<p>clientes works!</p>
+<p-card header="📋 Lista de Clientes" class="mt-4 shadow-lg">
+  <p-table [value]="clientes" class="p-datatable-sm" responsiveLayout="scroll">
+    <ng-template pTemplate="header">
+      <tr>
+        <th>Nombre</th>
+        <th>Correo</th>
+        <th>Teléfono</th>
+        <th>Acciones</th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-cliente>
+      <tr>
+        <td>{{ cliente.nombre }}</td>
+        <td>{{ cliente.correo }}</td>
+        <td>{{ cliente.telefono }}</td>
+        <td class="space-x-2">
+          <button pButton icon="pi pi-pencil" class="p-button-sm p-button-info"></button>
+          <button pButton icon="pi pi-trash" class="p-button-sm p-button-danger"></button>
+        </td>
+      </tr>
+    </ng-template>
+  </p-table>
+</p-card>

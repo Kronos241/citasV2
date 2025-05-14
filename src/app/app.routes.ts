@@ -1,25 +1,36 @@
 import { Routes } from '@angular/router';
+import { AuthGuard } from './guards/auth.guard';
 
 export const routes: Routes = [
-  { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
+  { path: '', redirectTo: 'login', pathMatch: 'full' },
+
+  {
+    path: 'login',
+    loadComponent: () =>
+      import('./pages/login/login.component').then((m) => m.LoginComponent)
+  },
   {
     path: 'dashboard',
-    loadComponent: () => import('./pages/dashboard/dashboard.component')
-      .then(m => m.DashboardComponent)
+    canActivate: [AuthGuard],
+    loadComponent: () =>
+      import('./pages/dashboard/dashboard.component').then((m) => m.DashboardComponent)
   },
   {
     path: 'citas',
-    loadComponent: () => import('./pages/citas/citas.component')
-      .then(m => m.CitasComponent)
+    canActivate: [AuthGuard],
+    loadComponent: () =>
+      import('./pages/citas/citas.component').then((m) => m.CitasComponent)
   },
   {
     path: 'clientes',
-    loadComponent: () => import('./pages/clientes/clientes.component')
-      .then(m => m.ClientesComponent)
+    canActivate: [AuthGuard],
+    loadComponent: () =>
+      import('./pages/clientes/clientes.component').then((m) => m.ClientesComponent)
   },
   {
     path: 'configuracion',
-    loadComponent: () => import('./pages/configuracion/configuracion.component')
-      .then(m => m.ConfiguracionComponent)
+    canActivate: [AuthGuard],
+    loadComponent: () =>
+      import('./pages/configuracion/configuracion.component').then((m) => m.ConfiguracionComponent)
   }
 ];
